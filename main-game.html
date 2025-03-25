@@ -10,7 +10,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+    }
+     
 
 /* Body styling */
 body {
@@ -43,18 +44,32 @@ body {
 /* Character portrait */
 .character-portrait {
     position: absolute;
-    left: 10%;
-    bottom: 30%;
-    width: 150px;
+    left: 45%;
+    bottom: 50%;
+    width: 600px;
     height: 200px;
-    z-index: 1;
+    z-index: 0;
+}
+
+.character-portrait2 {
+    position: absolute;
+    left: 3%;
+    bottom: 50%;
+    width: 300px;
+    height: 200px;
+    z-index: 0;
+}
+
+.character-portrait2 img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
 }
 
 .character-portrait img {
     width: 100%;
     height: auto;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(75, 25, 25, 0.5); /* Red shadow to match horror theme */
 }
 
 /* Dialogue box */
@@ -105,6 +120,10 @@ body {
     </style>
 </head>
 <body>
+    <audio id="audioPlayer" loop>
+        <source src="ambience.mp3" type="audio/mpeg">
+    </audio>
+
     <a href="home.html">Back to Home</a>
     <div class="game-container">
         <!-- Background Image or Color -->
@@ -112,7 +131,12 @@ body {
 
         <!-- Character Portrait -->
         <div class="character-portrait">
-            <img src="character1.png" alt="Character">
+            <img src="Lazarus.png" alt="Character">
+        </div>
+
+        <!-- Character Portrait -->
+        <div class="character-portrait2">
+            <img src="River.png" alt="Character">
         </div>
 
         <!-- Dialogue Box -->
@@ -129,6 +153,25 @@ body {
 
     <script>
        // Game logic and interactions
+       document.addEventListener("DOMContentLoaded", function () {
+        var audio = document.getElementById('audioPlayer');
+
+        // Try to autoplay
+        var playPromise = audio.play();
+
+        if (playPromise !== undefined) {
+            playPromise.catch(() => {
+                console.warn("Autoplay blocked. Trying workaround...");
+                // Start muted, then unmute after a short delay
+                audio.muted = true;
+                audio.play().then(() => {
+                    setTimeout(() => {
+                        audio.muted = false;
+                    }, 500);
+                });
+            });
+        }
+    });
 
 let dialogueBox = document.getElementById('dialogue');
 let choicesContainer = document.querySelector('.choices-container');
@@ -198,4 +241,3 @@ function handleChoice(nextDialogue) {
 updateDialogue();
     </script>
 </body>
-</html>
