@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forum</title>
+    <style>
+        @font-face {
+    font-family: Blackcraft;
+    src: url(Blackcraft.ttf);
+   }
+        body {
+            font-family: sans-serif;
+            background: url('One.png') no-repeat center center/cover;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex; /* Enable Flexbox */
+            justify-content: center; /* Center horizontally */
+            align-items: center;
+        }
+        .container {
+            width: 50%;
+            display: grid;
+            overflow: hidden;
+        }
+        /* Sidebar styles */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    z-index: 2;
+    transition: 0.5s;
+  }
+  
+  .sidebar a {
+    padding: 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    margin-top: 70px;
+  }
+  
+  
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  
+  
+  .sidebar .close-btn {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    font-size: 36px;
+    margin-right: 50px;
+  }
+  /* Main content styles */
+  .main-content {
+    padding: 20px;
+  }
+  
+  
+  .menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+  }
+  
+  .menu-btn:hover {
+    background-color: #444;
+  }
+  .text{
+      display: inline-block;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+  }
+  .header{
+      position: fixed;
+      top: 0; 
+      left: 0;
+      width: 100%;
+      padding: 20px 10%;
+      background: transparent;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+  }
+  .nav-bar a{
+      font-size: 18px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 35px;
+      transition: .3s;
+  }
+  .nav-bar a:hover,
+  .nav-bar a.active{
+      color: darkred;
+      text-decoration: underline;
+  }
+  .hidden {
+              display: none;
+          }
+
+        #main {
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+            display: flex; /* Enable Flexbox */
+            flex-direction: column; /* Arrange children in a column */
+            align-items: center;
+        }
+        .question-box, .comment-box {
+            width: 100%; /* Ensure the boxes take full width */
+            max-width: 500px; /* Set a maximum width for the boxes */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .question-box textarea, .comment-box textarea {
+            width: 100%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: none;
+        }
+        .question-box button, .comment-box button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background: darkred;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .question {
+            background: #fff;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .question .name, .comment .name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .question .date, .comment .date {
+            color: #888;
+            font-size: 12px;
+            margin-bottom: 10px;
+        }
+        .comment {
+            background: #f9f9f9;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header id="header" class="header" style="font-family: Blackcraft;">
+        <nav class="nav-bar">
+            <a href="home.html" class="">Home</a>
+            <a href="info.html" class="">Info</a>
+            <a href="contact.html" class="">Contact Us</a>
+            <a href="gallery.html" class="">Gallery</a>
+        </nav>
+    <div id="sidebar" class="sidebar">
+       <button class="close-btn" onclick="toggleSidebar()">&times;</button>
+       <a href="comments.html">COMMENTS</a>
+       <a href="contact.html">TUTORIAL</a>
+       <a href="background.html">BACKGROUND</a>
+    </div>
+    <div id="main-content" class="main-content">
+       <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    </div>
+    </header>
+    <section id="main" class="container">
+        <div class="question-box">
+            <textarea id="questionInput" placeholder="Write a question..."></textarea>
+            <button onclick="postQuestion()">Post Question</button>
+        </div>
+        <div id="questionsContainer"></div>
+    </section>
+
+    <script>
+        function postQuestion() {
+            const questionInput = document.getElementById('questionInput');
+            const questionText = questionInput.value.trim();
+            if (questionText === '') return;
+
+            const question = document.createElement('div');
+            question.className = 'question';
+
+            const name = document.createElement('div');
+            name.className = 'name';
+            name.innerText = 'User';
+
+            const date = document.createElement('div');
+            date.className = 'date';
+            date.innerText = new Date().toLocaleString();
+
+            const text = document.createElement('div');
+            text.className = 'text';
+            text.innerText = questionText;
+
+            const commentBox = document.createElement('div');
+            commentBox.className = 'comment-box';
+
+            const commentInput = document.createElement('textarea');
+            commentInput.placeholder = 'Write a comment...';
+            commentInput.className = 'comment-input';
+
+            const commentButton = document.createElement('button');
+            commentButton.innerText = 'Post Comment';
+            commentButton.onclick = () => postComment(commentInput, commentsContainer);
+
+            commentBox.appendChild(commentInput);
+            commentBox.appendChild(commentButton);
+
+            const commentsContainer = document.createElement('div');
+            commentsContainer.className = 'comments-container';
+
+            question.appendChild(name);
+            question.appendChild(date);
+            question.appendChild(text);
+            question.appendChild(commentBox);
+            question.appendChild(commentsContainer);
+
+            const questionsContainer = document.getElementById('questionsContainer');
+            questionsContainer.appendChild(question);
+
+            questionInput.value = '';
+        }
+
+        function postComment(commentInput, commentsContainer) {
+            const commentText = commentInput.value.trim();
+            if (commentText === '') return;
+
+            const comment = document.createElement('div');
+            comment.className = 'comment';
+
+            const name = document.createElement('div');
+            name.className = 'name';
+            name.innerText = 'User';
+
+            const date = document.createElement('div');
+            date.className = 'date';
+            date.innerText = new Date().toLocaleString();
+
+            const text = document.createElement('div');
+            text.className = 'text';
+            text.innerText = commentText;
+
+            comment.appendChild(name);
+            comment.appendChild(date);
+            comment.appendChild(text);
+
+            commentsContainer.appendChild(comment);
+
+            commentInput.value = '';
+        }
+        function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const mainContent = document.getElementById('main-content');
+  const isOpen = sidebar.style.width === '250px';
+
+
+  if (isOpen) {
+    sidebar.style.width = '0';
+    mainContent.style.marginRight = '0';
+    sidebar.classList.toggle('hidden');
+  } else {
+    sidebar.style.width = '250px';
+    mainContent.style.marginRight = '250px';
+  }
+}
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Contacts</title>
+     <link rel="stylesheet" href="style.css">
+ </head>
+ <body>
+    <header id="header" class="header">
+    <nav class="nav-bar">
+        <a href="home.html" class="">Home</a>
+        <a href="info.html" class="">Info</a>
+        <a href="contact.html" class="">Contact Us</a>
+        <a href="gallery.html" class="">Gallery</a>
+    </nav>
+<div id="sidebar" class="sidebar">
+   <button class="close-btn" onclick="toggleSidebar()">&times;</button>
+   <a href="comments.html">COMMENTS</a>
+   <a href="contact.html">TUTORIAL</a>
+   <a href="background.html">BACKGROUND</a>
+</div>
+<div id="main-content" class="main-content">
+   <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+</div>
+</header>
+     <div class="container1">
+        <article class="class card__article">
+            <img src="nygel.jpg" alt="image" class="card__img">
+            <div class="card__data">
+                <span class="card__description">Leader</span>
+                <h2 class="card__title">Christine Nygel D. Mejarito</h2>
+                <a href="https://www.facebook.com/chris.nygie" class="card__button">Message</a>
+            </div>
+        </article>
+
+        <article class="class card__article">
+            <img src="darrel.jpg" alt="image" class="card__img">
+            <div class="card__data">
+                <span class="card__description">Member</span>
+                <h2 class="card__title">Darrel Lee C. Ormisa</h2>
+                <a href="https://www.facebook.com/@darrel.ormisa" class="card__button">Message</a>
+            </div>
+        </article>
+
+        <article class="class card__article">
+            <img src="shanniah.jpg" alt="image" class="card__img">
+            <div class="card__data">
+                <span class="card__description">Member</span>
+                <h2 class="card__title">Shannia Ava A. Pacleb</h2>
+                <a href="https://www.facebook.com/avashannia" class="card__button">Message</a>
+            </div>
+        </article>
+    </div>
+    <script>
+        function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const mainContent = document.getElementById('main-content');
+  const isOpen = sidebar.style.width === '250px';
+
+
+  if (isOpen) {
+    sidebar.style.width = '0';
+    mainContent.style.marginRight = '0';
+    sidebar.classList.toggle('hidden');
+  } else {
+    sidebar.style.width = '250px';
+    mainContent.style.marginRight = '250px';
+  }
+}
+    </script>
+    </body>
+</html>

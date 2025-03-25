@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horror Visual Novel</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body styling */
+body {
+    background-color: #000;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Game container that holds everything */
+.game-container {
+    position: relative;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* Background image */
+.background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-image: url('https://images.alphacoders.com/109/1095591.jpg'); /* Example background */
+    background-size: cover;
+    background-position: center;
+    filter: grayscale(100%) blur(5px); /* Gives it an eerie, muted look */
+}
+
+/* Character portrait */
+.character-portrait {
+    position: absolute;
+    left: 10%;
+    bottom: 30%;
+    width: 150px;
+    height: 200px;
+    z-index: 1;
+}
+
+.character-portrait img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(75, 25, 25, 0.5); /* Red shadow to match horror theme */
+}
+
+/* Dialogue box */
+.dialogue-box {
+    position: absolute;
+    bottom: 25%;
+    left: 15%;
+    width: 70%;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 20px;
+    font-size: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+/* Choices container */
+.choices-container {
+    position: absolute;
+    bottom: 5%;
+    left: 15%;
+    width: 70%;
+}
+
+/* Choice buttons */
+.choice-button {
+    background: rgba(85, 20, 20, 0.7);
+    color: #fff;
+    border: none;
+    padding: 15px;
+    margin: 10px 0;
+    width: 100%;
+    font-size: 18px;
+    cursor: pointer;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(161, 39, 39, 0.5);
+    transition: transform 0.3s ease;
+}
+
+.choice-button:hover {
+    transform: scale(1.05);
+    background: rgba(255, 0, 0, 0.9);
+}
+
+.choice-button:active {
+    transform: scale(0.95);
+    background: rgba(255, 0, 0, 0.7);
+}
+    </style>
+</head>
+<body>
+    <a href="home.html">Back to Home</a>
+    <div class="game-container">
+        <!-- Background Image or Color -->
+        <div class="background"></div>
+
+        <!-- Character Portrait -->
+        <div class="character-portrait">
+            <img src="character1.png" alt="Character">
+        </div>
+
+        <!-- Dialogue Box -->
+        <div class="dialogue-box">
+            <p id="dialogue">It's one of those again...</p>
+        </div>
+
+        <!-- Choices Box -->
+        <div class="choices-container">
+            <button class="choice-button" onclick="chooseOption('Choice 1')">Choice 1</button>
+            <button class="choice-button" onclick="chooseOption('Choice 2')">Choice 2</button>
+        </div>
+    </div>
+
+    <script>
+       // Game logic and interactions
+
+let dialogueBox = document.getElementById('dialogue');
+let choicesContainer = document.querySelector('.choices-container');
+
+// Sample dialogue and choices
+let gameState = {
+    currentDialogue: 0,
+    dialogue: [
+        {
+            text: "It's one of those days again.",
+            choices: [
+                { text: "How are you, Lazarus?", next: 1 },
+                { text: "yeah, I guess.", next: 2 },
+            ]
+        },
+        {
+            text: "I miss my daughter. I havent been able to sleep lately...",
+            choices: [
+                { text: "Have this. It was her last gift to me, you need it more than me.", next: 3 },
+                { text: "I don't need you to be sad right now. What I need you to be is to plan our way out of this.", next: 4 }
+            ]
+        },
+        {
+            text: "Yeah, alright.",
+            choices: [
+                { text: "*Shruges*", next: 5 },
+                { text: "Stay focused on task.", next: 6 }
+            ]
+        },
+        {
+            text: "Thank you so much, river. This means more than you know. Let's get back to planning we're about to leave, soon.",
+            choices:[
+                { text: "alright, zarus. *smiles gently*", next: 7 },
+                { text: "mhm, I know", next: 8 }
+           ]
+        }
+    ]
+
+};
+
+// Update the dialogue text
+function updateDialogue() {
+    dialogueBox.innerText = gameState.dialogue[gameState.currentDialogue].text;
+    createChoices();
+}
+
+// Create choice buttons dynamically based on the current dialogue
+function createChoices() {
+    choicesContainer.innerHTML = '';
+    let choices = gameState.dialogue[gameState.currentDialogue].choices;
+    choices.forEach(choice => {
+        let button = document.createElement('button');
+        button.className = 'choice-button';
+        button.textContent = choice.text;
+        button.onclick = () => handleChoice(choice.next);
+        choicesContainer.appendChild(button);
+    });
+}
+
+// Handle choice selection
+function handleChoice(nextDialogue) {
+    gameState.currentDialogue = nextDialogue;
+    updateDialogue();
+}
+
+// Initialize the game
+updateDialogue();
+    </script>
+</body>
+</html>

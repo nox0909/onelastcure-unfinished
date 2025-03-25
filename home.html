@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Start Screen</title>
+    <a href="preloader.html"></a>
+    <style>
+       @font-face {
+        font-family: Blackcraft;
+        src: url(Blackcraft.ttf);
+       }
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('One.png') no-repeat center center/cover;
+            color: #fff;
+            font-family: Blackcraft, cursive;
+            font-size: 1.7rem;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .container {
+            position: inherit;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 30px;
+            border: 3px solid darkred;
+            border-radius: 15px;
+            box-shadow: 0px 0px 20px rgb(69, 11, 11);
+            z-index: 1;
+        }
+        h1 {
+            font-size: 4em;
+            text-transform: uppercase;
+            text-shadow: 3px 3px 5px black;
+            position: relative;
+            animation: flash 1s infinite alternate;
+        }
+       
+        @keyframes flash {
+            0% { opacity: 1; }
+            50% { opacity: 0.2; }
+            100% { opacity: 1; }
+        }
+       
+        p {
+            font-size: 1.3em;
+        }
+        .button {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 1.3em;
+            color: white;
+            background: darkred;
+            border: 2px solid red;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+            text-shadow: 2px 2px 5px black;
+        }
+        .button:hover {
+            background: red;
+            box-shadow: 0px 0px 10px red;
+        }
+        .button-container {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .no-wifi {
+            display: none;
+            font-size: 2em;
+            color: white;
+            background: black;
+            width: 100vw;
+            height: 100vh;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+        }
+        /* Sidebar styles */
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  top: 0;
+  right: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  z-index: 2;
+  transition: 0.5s;
+}
+
+.sidebar a {
+  padding: 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+  margin-top: 70px;
+}
+
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+
+.sidebar .close-btn {
+  position: absolute;
+  top: 0;
+  left: 25px;
+  font-size: 36px;
+  margin-right: 50px;
+}
+/* Main content styles */
+.main-content {
+  padding: 20px;
+}
+
+
+.menu-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.menu-btn:hover {
+  background-color: #444;
+}
+.text{
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+}
+.header{
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    padding: 20px 10%;
+    background: transparent;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+.nav-bar a{
+    font-size: 18px;
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    margin-left: 35px;
+    transition: .3s;
+}
+.nav-bar a:hover,
+.nav-bar a.active{
+    color: darkred;
+    text-decoration: underline;
+}
+.hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="warning-screen" class="container">
+        <h1 data-text="Warning!"></h1>
+        <p>This game is intended for players aged 18 and above. It contains blood and gore.</p>
+        <button class="button" onclick="showStartScreen()">I am 18+</button>
+        <button class="button" onclick="showNoWifiScreen()">I am under 18</button>
+    </div>
+    
+    <header id="header" class="header">
+         <nav class="nav-bar">
+            <a href="home.html" class="">Home</a>
+             <a href="info.html" class="">Info</a>
+             <a href="contact.html" class="">Contact Us</a>
+             <a href="gallery.html" class="">Gallery</a>
+         </nav>
+    <div id="sidebar" class="sidebar">
+        <button class="close-btn" onclick="toggleSidebar()">&times;</button>
+        <a href="comments.html">COMMENTS</a>
+        <a href="contact.html">TUTORIAL</a>
+        <a href="background.html">BACKGROUND</a>
+    </div>
+    <div id="main-content" class="main-content">
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    </div>
+    </header>
+
+    <div id="start-screen" class="text" style="display: none;">
+        <h1 data-text="Enter the Nightmare">One Last Cure</h1>
+    </div>
+
+
+    <div id="button-container" class="button-container" style="display: none;">
+        <button class="button" onclick="startGame()">Start Game</button>
+        <button class="button" onclick="quitGame()">Quit</button>
+    </div>
+   
+    <div id="no-wifi" class="no-wifi" style="display: none;">
+        <p>No Internet Connection</p>
+        <p>Please check your connection and try again.</p>
+    </div>
+
+
+    <script>
+        function showStartScreen() {
+            document.getElementById("warning-screen").style.display = "none";
+            document.getElementById("start-screen").style.display = "block";
+            document.getElementById("button-container").style.display = "flex";
+            document.getElementById('header').classList.remove('hidden'); // Show the header
+        }
+        
+        function toggleSidebar() {
+  const sidebar = document.getElementById('sidebar');
+  const mainContent = document.getElementById('main-content');
+  const isOpen = sidebar.style.width === '250px';
+
+
+  if (isOpen) {
+    sidebar.style.width = '0';
+    mainContent.style.marginRight = '0';
+    sidebar.classList.toggle('hidden');
+  } else {
+    sidebar.style.width = '250px';
+    mainContent.style.marginRight = '250px';
+  }
+}
+
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('header').classList.add('hidden'); // Hide the header initially
+});
+
+        function showNoWifiScreen() {
+            document.getElementById("warning-screen").style.display = "none";
+            document.getElementById("no-wifi").style.display = "flex";
+        }
+       
+        function startGame() {
+            window.location.href = 'main-game.html';
+            // Redirect or start the game logic here
+        }
+       
+        function quitGame() {
+            alert("Exiting game...");
+            // Add logic to quit the game or close the window
+        }
+    </script>
+</body>
+</html>
+
+

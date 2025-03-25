@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="count.css">
+    <title>One Last Cure</title>
+</head>
+<body>
+    <!-- Glitch text -->
+    <div class="glitch">look behind you<span>.</span></div>
+   
+    <!-- Loading bar -->
+    <div class="loading">
+        <div class="pbar">
+            <div class="p"></div>
+        </div>
+        <div class="percentage">0%</div>
+    </div>
+    
+    <!-- Black overlay -->
+    <div class="black-overlay" id="blackOverlay">
+         <!-- Warning message -->
+    <div class="warning-message" id="warningMessage">
+        <div class="glitch1">WARNING<span>.</span></div>
+    </div>
+    </div>
+
+
+    <audio id="audioPlayer" loop>
+        <source src="feasters.mp3" type="audio/mpeg">
+    </audio>
+   
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var audio = document.getElementById('audioPlayer');
+   
+            // Try to autoplay
+            var playPromise = audio.play();
+   
+            if (playPromise !== undefined) {
+                playPromise.catch(() => {
+                    console.warn("Autoplay blocked. Trying workaround...");
+                    // Start muted, then unmute after a short delay
+                    audio.muted = true;
+                    audio.play().then(() => {
+                        setTimeout(() => {
+                            audio.muted = false;
+                        }, 500);
+                    });
+                });
+            }
+        });
+
+
+        var percentage = document.querySelector('.percentage');
+        var p = document.querySelector('.p');
+
+
+        var count = 0;
+        var per = 0;
+
+
+        var loading = setInterval(animate, 200); // Set the interval for updating the loading progress
+
+
+        function animate() {
+    if(count == 100 && per == 400) {
+        // When loading is complete, stop the animation and the audio
+        percentage.classList.add("textblink");
+
+        // Stop the audio after preloading is complete
+        audio.pause();
+        audio.currentTime = 0; // Reset the audio to the beginning
+
+        // Show the black overlay
+        var blackOverlay = document.getElementById('blackOverlay');
+                    blackOverlay.style.display = 'block';
+                    blackOverlay.style.opacity = 1;
+
+                    // After the overlay is fully opaque, show the warning message
+                    setTimeout(function() {
+                        var warningMessage = document.getElementById('warningMessage');
+                        warningMessage.classList.add('show');
+
+                        // Redirect to home page after displaying the warning message for a few seconds
+                        setTimeout(function() {
+                            window.location.href = 'home.html';  // Redirect to homepage
+                        }, 3000); // 3 seconds delay before redirection
+                    }, 1000); // 1 second delay to match the transition
+
+                    clearInterval(loading); // Stop the loading animation
+                } else {
+                    per = per + 4; // Increment the progress bar width
+                    count++; // Increment percentage
+                    p.style.width = per + 'px';
+                    percentage.textContent = count + '%';
+                }
+            }
+            // Ensure the animate function is called periodically
+var count = 0;
+var per = 0;
+var loading = setInterval(animate, 100); // Adjust the interval as needed
+
+// Assuming p and percentage are defined elsewhere in your script
+var percentage = document.querySelector('.percentage'); // Example selector
+var audio = document.querySelector('audio'); // Example selector
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+    
+    
+        @font-face {
+            font-family: 'Font';
+            src: url(./Font.ttf);
+        }
+    
+    
+        html {
+            height: 100%;
+        }
+    
+    
+        body {
+            height: 100%;
+            background: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+    
+        .glitch {
+            position: relative;
+            display: inline-block;
+            font-family: 'Font';
+            font-size: 120px;
+            font-weight: 600;
+            align-items: center;
+            text-align: center;
+            margin-left: 20px;
+            margin-bottom: 120px;
+            letter-spacing: 10px;
+            color: rgb(146, 48, 24);
+        }
+    
+    
+        .glitch::before,
+        .glitch::after {
+            position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        color: darkred;
+        overflow: hidden;
+        clip-path: inset(0 0 0 0);
+        animation: glitch-animation 1s infinite linear alternate-reverse;
+    }
+
+    .glitch1 {
+            position: relative;
+            display: inline-block;
+            font-family: 'Font';
+            font-size: 120px;
+            font-weight: 600;
+            align-items: center;
+            text-align: center;
+            margin-left: 10px;
+            margin-top: 230px;
+            margin-bottom: 120px;
+            letter-spacing: 10px;
+            color: rgb(146, 48, 24);
+        }
+    
+    
+        .glitch1::before,
+        .glitch1::after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        color: darkred;
+        overflow: hidden;
+        clip-path: inset(0 0 0 0);
+        animation: glitch-animation1 1s infinite linear alternate-reverse;
+    }
+
+
+    @keyframes glitch-animation {
+        0% {
+            transform: translate(0, 0) skew(0deg);
+        }
+        20% {
+            transform: translate(-5px, 0) skew(-5deg);
+        }
+        40% {
+            transform: translate(5px, 0) skew(5deg);
+        }
+        60% {
+            transform: translate(-5px, 0) skew(-5deg);
+        }
+        80% {
+            transform: translate(5px, 0) skew(5deg);
+        }
+        100% {
+            transform: translate(0, 0) skew(0deg);
+        }
+    }
+
+
+    /* Flickering effect */
+    @keyframes flicker {
+        0% {
+            opacity: 1;
+        }
+        20% {
+            opacity: 0.7;
+        }
+        40% {
+            opacity: 0.8;
+        }
+        60% {
+            opacity: 0.6;
+        }
+        80% {
+            opacity: 0.7;
+        }
+        100% {
+            opacity: 1;
+        }
+    }
+
+    @keyframes glitch-animation1 {
+        0% {
+            transform: translate(0, 0) skew(0deg);
+        }
+        20% {
+            transform: translate(-5px, 0) skew(-5deg);
+        }
+        40% {
+            transform: translate(5px, 0) skew(5deg);
+        }
+        60% {
+            transform: translate(-5px, 0) skew(-5deg);
+        }
+        80% {
+            transform: translate(5px, 0) skew(5deg);
+        }
+        100% {
+            transform: translate(0, 0) skew(0deg);
+        }
+    }
+
+
+
+    .glitch {
+        animation: flicker 1s infinite alternate;
+    }
+
+    .glitch1 {
+        animation: flicker 1s infinite alternate;
+    }
+
+
+    .loading {
+        position: absolute;
+        top: 58%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+    }
+
+
+    .percentage {
+        color: #999;
+        font-size: 20px;
+        font-weight: 400;
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 5px;
+    }
+
+
+    .pbar {
+        width: 406px;
+        height: 20px;
+        background: rgb(146, 48, 24);
+        border-radius: 13px;
+        padding: 3px;
+        box-sizing: border-box;
+    }
+
+
+    .p {
+        width: 0px;
+        height: 15px;
+        background: black;
+        border-radius: 13px;
+    }
+      /* Black overlay styles */
+      .black-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
+            z-index: 1000;
+            display: none;
+        }
+
+        /* Warning message styles */
+        .warning-message {
+            display: none;
+            text-align: center;
+            margin-top: 50px;
+            color: white;
+            opacity: 0;
+            transition: opacity 3s ease-in-out;
+        }
+
+        .warning-message.show {
+            display: block;
+            opacity: 1;
+        }
+    </style>
+
+
+</body>
+</html>

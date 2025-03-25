@@ -1,0 +1,162 @@
+@font-face {
+    font-family: Blackcraft;
+    src: url(Blackcraft.ttf);
+   }
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    height: 100vh;
+    background: url('One.png') center center/cover;
+    font-family: Blackcraft, sans-serif;
+    color: rgb(211, 211, 211);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .container {
+    width: 70rem;
+    height: 500px;
+    perspective: 800px;
+    gap: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .card:hover {
+    cursor: pointer;
+    transform: rotateY(180deg);
+  }
+  
+  .card {
+    height: 100%;
+    width: calc((100% / 3) - (2 * 1rem / 3));
+    position: relative;
+    transition: transform 1500ms;
+    transform-style: preserve-3d;
+    margin-bottom: 1rem;
+  }
+  
+  .front,
+  .back {
+    height: 100%;
+    width: 100%;
+    border-radius: 2rem;
+    box-shadow: 0 0 5px 2px rgba(50, 50, 50, 0.25);
+    position: absolute;
+    backface-visibility: hidden;
+  }
+  
+  .front {
+    background-image: var(--img);
+    background-position: -150px;
+    background-size: 750px;
+  }
+  .back {
+    background-color: #3a3a3a;
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    padding: 10px;
+  }
+
+
+/* Sidebar styles */
+.sidebar {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    z-index: 2;
+    transition: 0.5s;
+  }
+  
+  .sidebar a {
+    padding: 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+    margin-top: 70px;
+  }
+  
+  
+  .sidebar a:hover {
+    color: #f1f1f1;
+  }
+  
+  
+  .sidebar .close-btn {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    font-size: 36px;
+    margin-right: 50px;
+  }
+  /* Main content styles */
+  .main-content {
+    padding: 20px;
+  }
+  
+  
+  .menu-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    font-size: 20px;
+    cursor: pointer;
+    background-color: #111;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+  }
+  
+  .menu-btn:hover {
+    background-color: #444;
+  }
+  .text{
+      display: inline-block;
+      justify-content: center;
+      align-items: center;
+      position: fixed;
+  }
+  .header{
+      position: fixed;
+      top: 0; 
+      left: 0;
+      width: 100%;
+      padding: 20px 10%;
+      background: transparent;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 100;
+  }
+  .nav-bar a{
+      font-size: 18px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      margin-left: 35px;
+      transition: .3s;
+  }
+  .nav-bar a:hover,
+  .nav-bar a.active{
+      color: darkred;
+      text-decoration: underline;
+  }
+  .hidden {
+              display: none;
+          }
